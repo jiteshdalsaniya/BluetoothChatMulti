@@ -278,6 +278,11 @@ public class BluetoothChatService {
 	                    mSockets.add(socket);
 	                    mDeviceAddresses.add(address);
 	                    connected(socket, socket.getRemoteDevice());
+	                    //Unlike TCP/IP, RFCOMM only allows one connected client per channel at a time, so in most cases it makes sense to 
+	                    //call close() on the BluetoothServerSocket immediately after accepting a connected socket.
+	                    if(serverSocket != null){
+	                    	serverSocket.close();
+	                    }
                     }	                    
             	}
             } catch (IOException e) {
